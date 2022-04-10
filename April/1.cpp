@@ -9,5 +9,4 @@ public:
             i++;n--;
         }
     }
-    // comment
 };
