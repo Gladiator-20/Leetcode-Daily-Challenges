@@ -1,0 +1,46 @@
+// Problem Link : https://leetcode.com/problems/n-queens/
+
+// Author - gladiator-20
+
+class Solution {
+public:
+bool safe(int row,int col,vector<string> res,int n)
+    {
+        int i=row;int j=col;
+        while(i>=0){if(res[i--][j]=='Q'){return false;}}
+        i=row;
+        while(i>=0 && j>=0){if(res[i--][j--]=='Q'){return false;}}
+        i=row;j=col;
+        while(i>=0 && j<n){if(res[i--][j++]=='Q'){return false;}}
+        return true;
+    }
+    
+bool answer(int j,vector<string>&res,int n,vector<vector<string>>&ans){
+        if(j==n){
+            ans.push_back(res);
+            return true;
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(safe(j,i,res,n)){
+                res[j][i]='Q';
+                answer(j+1,res,n,ans);
+                res[j][i]='.';
+            } 
+        }
+        return false;
+    }
+    
+vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>>ans;
+        vector<string>res(n);
+        string s(n,'.');
+        for(int i=0;i<n;i++)
+        {
+            res[i]=s;
+        }
+        answer(0,res,n,ans);
+        return ans;
+        
+    }
+};
