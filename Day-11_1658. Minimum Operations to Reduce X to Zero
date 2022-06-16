@@ -1,0 +1,33 @@
+// Problem Link : https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/
+
+// Author - gladiator-20
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+        int n=nums.size();
+        vector<int>pre(n),suf(n);
+        
+        pre[0]=nums[0];
+        suf[n-1]=nums[n-1];
+        for(int i=1;i<n;i++){
+            pre[i]=nums[i]+pre[i-1];
+            suf[n-1-i]=nums[n-1-i]+suf[n-i];
+        }
+        
+        int ans=(int)1e6;
+        unordered_map<int,int>mp;
+        
+        mp[0]=0;
+        for(int i=0;i<n;i++){
+            if(mp.count(x-suf[i])){
+                ans=min(ans,mp[x-suf[i]]+n-i);
+            }
+            mp[pre[i]]=i+1;
+        }
+        
+        if(mp.count(x))ans=min(ans,mp[x]);
+        if(ans==(int)1e6)return -1;
+        else return ans;
+    }
+};
