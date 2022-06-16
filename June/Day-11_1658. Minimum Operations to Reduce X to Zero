@@ -29,5 +29,6 @@ public:
         if(mp.count(x))ans=min(ans,mp[x]);
         if(ans==(int)1e6)return -1;
         else return ans;
+
     }
 };
