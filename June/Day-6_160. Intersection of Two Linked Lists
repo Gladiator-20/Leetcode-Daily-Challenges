@@ -1,0 +1,58 @@
+// Problem Link : https://leetcode.com/problems/intersection-of-two-linked-lists/
+
+// Author - gladiator-20
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int len(ListNode* head){
+        int num=0;
+        while(head!=NULL)
+        {
+            head=head->next;
+            num++;
+        }
+        return num;
+    }
+    
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int l1=len(headA);
+        int l2=len(headB);
+        if(l1>l2){
+            int diff=l1-l2;
+            int step=0;
+            while(step<diff)
+            {
+                headA=headA->next;
+                step++;
+            }
+        }
+        else{
+            int diff=l2-l1;
+            int step=0;
+            while(step<diff)
+            {
+                headB=headB->next;
+                step++;
+            }
+        }
+        bool flag=0;
+        while(headA!=NULL ||headB!=NULL){
+            if(headA==headB){
+                flag=1;
+                break;
+            }
+            headA=headA->next;
+            headB=headB->next;
+        }
+        if(flag){return headA;}
+        else return NULL;
+    }
+};
