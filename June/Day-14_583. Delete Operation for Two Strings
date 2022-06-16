@@ -1,0 +1,24 @@
+// Problem Link : https://leetcode.com/problems/delete-operation-for-two-strings/
+
+// Author - gladiator-20
+
+class Solution {
+public:
+    int minDistance(string w1, string w2) {
+        int n=w1.length(),m=w2.length();
+        if(n==0 || m==0)return n+m;
+        vector<vector<int>>dp(2,vector<int>(m+1));
+        
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if(w1[i-1]==w2[j-1])dp[i%2][j]=dp[(i-1)%2][j-1]+1;
+                else dp[i%2][j]=max(dp[(i-1)%2][j],dp[i%2][j-1]);
+            }
+        }
+        
+        return n+m-(2*dp[n%2][m]);
+        
+    }
+};
