@@ -1,0 +1,41 @@
+// Problem Link : https://leetcode.com/problems/transpose-matrix/
+
+// Author - gladiator-20
+
+class NumMatrix {
+    vector<vector<int>>val;
+public:
+    NumMatrix(vector<vector<int>>& matrix) {
+        int n=matrix.size(),m=matrix[0].size();
+        val.resize(n);
+        for(int i=0;i<n;i++)val[i].clear();
+        for(int i=0;i<n;i++){
+            val[i].resize(m);
+            for(int j=0;j<m;j++){
+                val[i][j]=matrix[i][j];
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++)
+            {
+                if(j>0)val[i][j]+=val[i][j-1];
+                if(i>0)val[i][j]+=val[i-1][j];
+                if(i>0 && j>0)val[i][j]-=val[i-1][j-1];
+            }
+        }
+    }
+    
+    int sumRegion(int row1, int col1, int row2, int col2) {
+        int ans=val[row2][col2];
+        if(row1>0)ans-=val[row1-1][col2];
+        if(col1>0)ans-=val[row2][col1-1];
+        if(row1>0 && col1>0)ans+=val[row1-1][col1-1];
+        return ans;
+    }
+};
+
+/**
+ * Your NumMatrix object will be instantiated and called as such:
+ * NumMatrix* obj = new NumMatrix(matrix);
+ * int param_1 = obj->sumRegion(row1,col1,row2,col2);
+ */
