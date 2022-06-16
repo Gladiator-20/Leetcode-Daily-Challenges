@@ -1,0 +1,24 @@
+// Problem Link : https://leetcode.com/problems/longest-palindromic-substring/
+
+// Author - gladiator-20
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n=s.length();
+        string ans="";
+        int len=0,st=0;
+        for(int i=0;i<n;i++){
+            int l=i,r=i;
+            while(r<n-1 && s[l]==s[r+1])r++;
+            while(l>=0 && r<n && s[l]==s[r]){
+                l--;r++;
+            }
+            if(r-l-1>len){
+                st=l+1;len=r-l-1;
+            }
+        }
+        return s.substr(st,len);
+        // return ans;
+    }
+};
