@@ -1,0 +1,33 @@
+// Problem Link : https://leetcode.com/problems/prefix-and-suffix-search/
+
+// Author - gladiator-20
+
+class WordFilter {
+    unordered_map<string,pair<string,int>>mp;
+public:
+    WordFilter(vector<string>& words) {
+        for(int j=0;j<words.size();j++)
+        {
+            string tem="";
+            for(char c:words[j]){
+                tem.push_back(c);
+                string x;
+                for(int i=words[j].length()-1;i>=0;i--){
+                    x=tem+"."+words[j].substr(i);
+                    mp[x]={words[j],j};
+                }
+            }
+        }
+    }
+    
+    int f(string prefix, string suffix) {
+        if(mp.count(prefix+"."+suffix))return mp[prefix+"."+suffix].second;
+        return -1;
+    }
+};
+
+/**
+ * Your WordFilter object will be instantiated and called as such:
+ * WordFilter* obj = new WordFilter(words);
+ * int param_1 = obj->f(prefix,suffix);
+ */
