@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int closestMeetingNode(vector<int>& edges, int node1, int node2) {
+    int closestMeetingNode(vector<int>& edges, int node1, int node2){
         queue<int>q;
         int n = edges.size();
         vector<int>dis(n,-1),dis2(n,-1);
